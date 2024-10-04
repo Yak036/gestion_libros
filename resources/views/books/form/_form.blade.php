@@ -27,7 +27,7 @@
     <div class="mb-4">
       <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Descripción:</label>
       <span class="text-xs text-red-600">@error('description') {{$message}} @enderror</span>
-      <textarea class="capitalize rounded border-gray-700 w-full py-2 px-3 mb-3" id="description" name="description">{{$book->description}}</textarea>
+      <textarea class="capitalize rounded border-gray-700 w-full py-2 px-3 mb-3" rows="6" id="description" name="description">{{$book->description}}</textarea>
     </div>
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Enviar</button>
 

@@ -19,10 +19,21 @@
 </head>
 <body>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  @if(session('success'))
+
+  {{-- @if(session('success'))
     <div class="alert alert-success">
       <h1>{{ session('success') }}</h1>
     </div>
+  @endif --}}
+
+  @if (session('success'))
+    <script>
+      Swal.fire({
+        icon: 'success',
+        title: '¡Éxito!',
+        text: '{{ session('success') }}'
+      });
+    </script>
   @endif
 
   

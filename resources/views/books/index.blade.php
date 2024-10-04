@@ -35,11 +35,17 @@
                         <div class="flex justify-center">
                           <div class="text-gray-1000 dark:text-gray-100">
                               <table class="mb-3 w-full">
+                                <tr>
+                                  <td class="px-6 py-4 ">Autor</td>
+                                  <td class="px-6 py-4 ">Titulo</td>
+                                  <td class="px-6 py-4 ">Opciones</td>
+                              </tr>
                                   @foreach ($user as $book)
-                                  <tr>
+                                  <tr class="border">
                                       <td><p class="text-gray-600">{{$book->author}}</p></td>
                                       <td class="px-6 py-4">
                                           <a 
+                                          title="Mas detalles"
                                           class="hover:text-green-700 transition-colors duration-300 ease-in-out cursor-pointer"
                                           href="{{route('books.show', $book)}}"
                                           >

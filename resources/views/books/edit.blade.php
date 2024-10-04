@@ -1,5 +1,5 @@
 {{-- Todo: Formulario para editar un libro --}}
-{{-- Todo: Formulario para crear un libro --}}
+
 
 @extends('template')
 
@@ -15,8 +15,9 @@
 
   <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+          <div class="">
               <div class="p-6 text-gray-900 dark:text-gray-100">
+                {{-- ? Enviar formulario al controlador books --}}
                   <form action="{{route('books.update', $book)}}" method="POST">
                     @method('PUT')
                     @include('books.form._form')

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+    // ? Funcion para mostrar books de todos los usuarios
     public function index(Request $request)
     {
         if (isset($request->search)) {

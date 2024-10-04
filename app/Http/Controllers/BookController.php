@@ -16,20 +16,27 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // * Mostrar todos los books de un usuario lo los relacionados con su busqueda
     public function index(Request $request){
+        // * Si existe una busqueda 
         if (isset($request->search)) {
-            $userBooks = User::with('books')->findOrFail(auth()->user()->id);
             // ? Buscar los libros que tengan el user_id == al usuario autenticado
             $searchBook = Book::where('user_id', auth()->user()->id)
+                            // ? where grupal usando la sentencia anterior con el $request enviado por el user
                             ->where(function ($query) use ($request) {
+                                // ? buscar palabras similares a las que mando el usuario
                                 $query->where('title', 'like', '%' . $request->search . '%')
-                                      ->orWhere('author', 'like', '%' . $request->search . '%');
+                                ->orWhere('author', 'like', '%' . $request->search . '%');
                             })
-                            ->paginate(5);
+                            ->paginate(10);
+                            
+            // ? retornar a la vista index con los datos de la query anterior
             return view('books.index',[
                 'user'=> $searchBook
             ]);
         }
+        // * Si no existe query de busqueda
+        //? Traer todos los libros vinculados al user logeado
         $userBooks = User::with('books')->findOrFail(auth()->user()->id);
 
         $books = $userBooks->books()->paginate(10);
@@ -43,6 +50,7 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // * Esta funcion solo retorna a la vista de creacion con el $book seleccionado desde la vista index
     public function create(Book $book)
     {
         return view('books.create',[
@@ -56,8 +64,10 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // *Crear un nuevo libro
     public function store(Request $request)
     {
+        //? validaciones necesarias
         $validated = $request->validate([
             'title' => 'required|max:255',
             'author' => 'required|max:255',
@@ -65,10 +75,20 @@ class BookController extends Controller
             'gender' => 'nullable|max:255',
             'description' => 'nullable',
         ],[
-
+            // ? Errores de validacion traducidos al spanish
+            'title.required'=>'Este campo es requerido',
+            'author.required'=>'Este campo es requerido',
+            'published_year.digits'=>'Debe tener almenos 4 digitos y ser mayor a 1500',
+            'published_year.min'=>'Minimo debe ser del año 1500',
+            'published_year.max'=>'No pudo ser publicado en esa fecha',
+            'body.required'=>'Se necesita mínimo un párrafo',
         ]);
+        // ? Creacion de instancia y vinculacion con el usuario
         $book = new Book($validated);
         $book->user_id = auth()->id();
+
+        // ? la tabla slug la usamos en el curso para hacer rutas amigables, no super como implementarla bien
+        // ? Elimina los espacios del titulo del libro para hacer una url
         $book->slug = Str::slug($request->title);
         $book->save();
         return redirect()->route('books.index')->with('success',
@@ -109,8 +129,10 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
+    // ? funcion para actualizar
     public function update(Request $request, Book $book)
     {
+        // ? Validar si el usuario esta autorizado con el archivo policy
         $this->authorize('authorized', $book, auth()->user());
 
         $validated = $request->validate([
