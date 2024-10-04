@@ -8,7 +8,7 @@ Crear un archivo .env en la raiz del proyecto y ingresar las credenciales de su 
 esta en el archivo .env.example
 
 iniciar el comando para iniciar las migraciones y los inserts de datos falsos
-->php composer migrate --seed
+->php artisan migrate --seed
 
 inicializar el servidor con
 ->php artisan serve

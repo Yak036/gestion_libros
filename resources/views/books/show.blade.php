@@ -34,7 +34,7 @@
                     </div>
                     <div class="mb-4">
                       <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Descripción:</label>
-                      <textarea readonly class="capitalize rounded border-gray-700 w-full py-2 px-3 mb-3 h-32" id="description" name="description">{{$book->description}}</textarea>
+                      <textarea readonly class="rounded border-gray-700 w-full py-2 px-3 mb-3 h-32" id="description" name="description">{{$book->description}}</textarea>
                     </div>
                 
                     <div class="flex justify-between items-center">
@@ -47,5 +47,6 @@
       </div>
   </div>
 </x-app-layout>
+
 
 @endsection

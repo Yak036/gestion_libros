@@ -26,6 +26,7 @@ class BookFactory extends Factory
             'gender' => $this->faker->text(5),
             'description'=>$this->faker->text(300),
             'slug' => Str::slug($title),
+            'cover_image'=> $this->faker->imageUrl(500,500)
         ];
     }
 }

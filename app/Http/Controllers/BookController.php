@@ -74,6 +74,7 @@ class BookController extends Controller
             'published_year' => 'nullable|digits:4|integer|min:1500|max:'.date('Y'),
             'gender' => 'nullable|max:255',
             'description' => 'nullable',
+            'cover_image' => 'required|mimes:jpeg'
         ],[
             // ? Errores de validacion traducidos al spanish
             'title.required'=>'Este campo es requerido',
@@ -90,6 +91,10 @@ class BookController extends Controller
         // ? la tabla slug la usamos en el curso para hacer rutas amigables, no super como implementarla bien
         // ? Elimina los espacios del titulo del libro para hacer una url
         $book->slug = Str::slug($request->title);
+        
+        // ! validacion de archivo img
+        $book->cover_image = $request->file('cover_image')->store('cover', 'public');
+        
         $book->save();
         return redirect()->route('books.index')->with('success',
             'Libro agregado exitosamente.'
@@ -132,15 +137,18 @@ class BookController extends Controller
     // ? funcion para actualizar
     public function update(Request $request, Book $book)
     {
+
+        // dd(asset($book->cover_image));
         // ? Validar si el usuario esta autorizado con el archivo policy
         $this->authorize('authorized', $book, auth()->user());
 
         $validated = $request->validate([
-            'title' => 'required|max:255',
-            'author' => 'required|max:255',
-            'published_year' => 'nullable|digits:4|integer|min:1500|max:' . date('Y'),
-            'gender' => 'nullable|max:255',
-            'description' => 'nullable',
+                'title' => 'required|max:255',
+                'author' => 'required|max:255',
+                'published_year' => 'nullable|digits:4|integer|min:1500|max:' . date('Y'),
+                'gender' => 'nullable|max:255',
+                'description' => 'nullable',
+                'cover_image' => 'required|mimes:jpeg,png'
             ],[
                 'title.required'=>'Este campo es requerido',
                 'author.required'=>'Este campo es requerido',
@@ -149,7 +157,11 @@ class BookController extends Controller
                 'published_year.max'=>'No pudo ser publicado en esa fecha',
                 'body.required'=>'Se necesita mínimo un párrafo',
             ]);
+
         $book->update($validated);
+
+        $book->cover_image = $request->file('cover_image')->store('cover','public');
+        $book->save();
         return redirect()->route('books.index')->with(
             'success',
             'Libro actualizado exitosamente.'

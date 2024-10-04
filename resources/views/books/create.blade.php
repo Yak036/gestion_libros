@@ -16,7 +16,7 @@
           <div class="">
               <div class="p-6 text-gray-900 dark:text-gray-100">
                 {{-- ? Enviar formulario al metodo store del controllador books --}}
-                  <form action="{{route('books.store')}}" method="POST">
+                  <form action="{{route('books.store')}}" method="POST" enctype="multipart/form-data">
   
                     @include('books.form._form')
                   </form>

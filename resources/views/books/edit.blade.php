@@ -18,7 +18,7 @@
           <div class="">
               <div class="p-6 text-gray-900 dark:text-gray-100">
                 {{-- ? Enviar formulario al controlador books --}}
-                  <form action="{{route('books.update', $book)}}" method="POST">
+                  <form action="{{route('books.update', $book)}}" method="POST" enctype="multipart/form-data">
                     @method('PUT')
                     @include('books.form._form')
                   </form>

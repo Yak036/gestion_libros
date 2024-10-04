@@ -34,43 +34,51 @@
                       <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="flex justify-center">
                           <div class="text-gray-1000 dark:text-gray-100">
-                              <table class="mb-3 w-full">
-                                <tr>
-                                  <td class="px-6 py-4 ">Autor</td>
-                                  <td class="px-6 py-4 ">Titulo</td>
-                                  <td class="px-6 py-4 ">Opciones</td>
-                              </tr>
+                            <table class="mb-3 w-full" id="myTable">
+                              <thead>
+                                  <tr>
+                                      <th class="px-6 py-4 ">Autor</th>
+                                      <th class="px-6 py-4 ">Titulos</th>
+                                      <th class="px-6 py-4 ">Opciones</th>
+                                      <th class="px-6 py-4 ">Eliminar</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
                                   @foreach ($user as $book)
-                                  <tr class="border">
-                                      <td><p class="text-gray-600">{{$book->author}}</p></td>
-                                      <td class="px-6 py-4">
+                                  <tr>
+                                      <th><p class="text-gray-600">{{$book->author}}</p></th>
+                                      <th class="px-6 py-4">
                                           <a 
                                           title="Mas detalles"
                                           class="hover:text-green-700 transition-colors duration-300 ease-in-out cursor-pointer"
                                           href="{{route('books.show', $book)}}"
                                           >
-                                            {{$book->title}}
+                                              {{$book->title}}
                                           </a>
-                                      </td>
-                                      <td class="px-6 py-4">
+                                      </th>
+                                      <th class="px-6 py-4">
                                           <a href="{{route('books.edit', $book)}}" class="text-indigo-600 hover:bg-blue-600 hover:text-black transition-colors duration-300 ease-in-out px-4 py2">Editar</a>
-                                      </td>
-                                      <td class="px-6 py-4 ">
-                                          <form action="{{route('books.destroy', $book)}}" method="POST">
+                                      </th>
+                                      <th class="px-6 py-4 ">
+                                          <form id="formEliminar" action="{{route('books.destroy', $book)}}" method="POST">
                                               @csrf
                                               @method('DELETE')
                                               <input 
                                               type="submit" 
                                               value="Eliminar" 
+                                              id="delete"
                                               class="cursor-pointer hover:bg-red-400 bg-gray-800 text-white rounded px-4 py2 transition-colors duration-300 ease-in-out" 
-                                              onclick="return confirm('Desea eliminar??')"
-                                            >
+                                              >
                                           </form>
-                                      </td>
+                                      </th>
                                   </tr>
                                   @endforeach
-                              </table>
+                              </tbody>
+                          </table>  
+
                               {{$user->links()}}
+
+
                           </div>
                       </div>
                   </div>
@@ -81,11 +89,29 @@
   </div>
 </x-app-layout>
 
-{{-- @auth
+<script type="module" src="{{asset('/js/table.js')}}"></script>
+
 <script>
-  Swal.fire("SweetAlert2 is working!");
+  document.getElementById('delete').addEventListener('click', (e)=>{
+    e.preventDefault()
+    Swal.fire({
+    title: "Deseas eliminar este libro?",
+    text: "Esta accion no puede revertirse",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      document.getElementById('formEliminar').submit()
+    }
+  });
+})
+
+  
 </script>
-@endauth --}}
+
 
 
 

@@ -15,7 +15,8 @@ class Book extends Model
         'published_year',
         'gender',
         'description',
-        'slug'
+        'slug',
+        'cover_image',
     ];
     
     public function user(){

@@ -3,7 +3,18 @@
 
 <div class="max-w-md mx-auto p-4 bg-white rounded shadow-md">
   <h2 class="text-lg font-bold mb-4">Datos:</h2>
-  <form>
+
+  @if ($book->cover_image != '')
+    <img src="{{asset('storage/'.$book->cover_image) }}" >
+  @endif
+  <div class="mb-4">
+    
+  </div>
+    <div class="mb-4">
+      <label for="cover_image" class="block text-gray-700 text-sm font-bold mb-2">Portada:</label>
+      <span class="text-xs text-red-600">@error('cover_image') {{$message}} @enderror</span>
+      <input type="file" name="cover_image" id="cover_image">
+    </div>
     <div class="mb-4">
       <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Título:</label>
       <span class="text-xs text-red-600">@error('title') {{$message}} @enderror</span>
@@ -14,6 +25,7 @@
       <span class="text-xs text-red-600">@error('author') {{$message}} @enderror</span>
       <input class="capitalize rounded border-gray-700 w-full py-2 px-3 mb-3" type="text" id="author" name="author" value="{{$book->author}}">
     </div>
+    
     <div class="mb-4">
       <label for="published_year" class="capitalize block text-gray-700 text-sm font-bold mb-2">Año de publicación:</label>
       <span class="text-xs text-red-600">@error('published_year') {{$message}} @enderror</span>
@@ -27,7 +39,7 @@
     <div class="mb-4">
       <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Descripción:</label>
       <span class="text-xs text-red-600">@error('description') {{$message}} @enderror</span>
-      <textarea class="capitalize rounded border-gray-700 w-full py-2 px-3 mb-3" rows="6" id="description" name="description">{{$book->description}}</textarea>
+      <textarea class="rounded border-gray-700 w-full py-2 px-3 mb-3" rows="6" id="description" name="description">{{$book->description}}</textarea>
     </div>
     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Enviar</button>
 

@@ -17,7 +17,7 @@
                     </x-nav-link>
 
                     <x-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">
-                        {{ __('Mis articulos') }}
+                        {{ __('Mis libros') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -78,7 +78,7 @@
 
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('books.index')" :active="request()->routeIs('books.index')">
-                {{ __('Mis articulos') }}
+                {{ __('Mis libros') }}
             </x-responsive-nav-link>
         </div>
         <!-- Responsive Settings Options -->

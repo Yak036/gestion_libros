@@ -21,7 +21,8 @@ return new class extends Migration
             $table->bigInteger('published_year')->nullable();
             $table->string('gender')->nullable();
             $table->text('description')->nullable();
-            
+            $table->text('cover_image')->nullable();
+
             $table->string('slug');
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
