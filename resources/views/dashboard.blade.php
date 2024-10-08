@@ -16,10 +16,6 @@
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         
                     <h1 class="">Listado de libros</h1>
-                        <form action="{{route('dashboard')}}" method="GET">
-                        <label for="search" class="block text-gray-500 text-sm font-bold mb-2">Buscar autor:</label>
-                        <input class="border border-gray-200 rounded w-1/2 py-2 px-3 mb-3" type="text" id="search" name="search" >
-                    </form>
                     <div class="py-12">
                         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -51,7 +47,6 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    {{$user->links()}}
                                 </div>
                             </div>
                         </div>

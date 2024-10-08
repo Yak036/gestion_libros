@@ -19,10 +19,6 @@
               <div class="p-6 text-gray-900 dark:text-gray-100">
                   
                 <h1 class="">Listado de libros</h1>
-                <form action="{{route('books.index')}}" method="GET">
-                  <label for="search" class="block text-gray-500 text-sm font-bold mb-2">Buscar autor:</label>
-                  <input class="border border-gray-200 rounded w-1/2 py-2 px-3 mb-3" type="text" id="search" name="search" >
-                </form>
 
                 <div class="py-12">
                   <a href="{{route('books.create')}}" 
@@ -76,7 +72,6 @@
                               </tbody>
                           </table>  
 
-                              {{$user->links()}}
 
 
                           </div>
@@ -94,7 +89,7 @@
 <script>
   document.getElementById('delete').addEventListener('click', (e)=>{
     e.preventDefault()
-    Swal.fire({
+    swal.fire({
     title: "Deseas eliminar este libro?",
     text: "Esta accion no puede revertirse",
     icon: "warning",

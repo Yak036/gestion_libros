@@ -13,7 +13,7 @@ class PageController extends Controller
     {
         if (isset($request->search)) {
             // ? Buscar los libros que tengan el user_id == al usuario autenticado
-            $searchBook = Book::where('author', 'like', '%' . $request->search . '%')->paginate(10);
+            $searchBook = Book::where('author', 'like', '%' . $request->search . '%')->get();
                             
             return view('dashboard',[
                 'user'=> $searchBook

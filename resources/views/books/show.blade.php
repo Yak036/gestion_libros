@@ -43,6 +43,16 @@
                     </div>
                 
               </div>
+              <div class="mt-8 max-w-md mx-auto p-4 rounded shadow-md">
+                <h2 class="w-full text-center">Comentarios</h2>
+                @include('books.comment._showComments')
+              </div>
+              <div class="mt-8 max-w-md mx-auto p-4 rounded shadow-md">
+                <h2 class="w-full text-center">Agregar un comentario</h2>
+                <form action="{{route('comments.store', $book->title)}}" method="POST">
+                  @include('books.comment._createComment')
+                </form>
+              </div>
           </div>
       </div>
   </div>

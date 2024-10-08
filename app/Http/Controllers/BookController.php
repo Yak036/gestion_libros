@@ -18,6 +18,7 @@ class BookController extends Controller
      */
     // * Mostrar todos los books de un usuario lo los relacionados con su busqueda
     public function index(Request $request){
+    
         // * Si existe una busqueda 
         if (isset($request->search)) {
             // ? Buscar los libros que tengan el user_id == al usuario autenticado
@@ -28,7 +29,7 @@ class BookController extends Controller
                                 $query->where('title', 'like', '%' . $request->search . '%')
                                 ->orWhere('author', 'like', '%' . $request->search . '%');
                             })
-                            ->paginate(10);
+                            ->get();
                             
             // ? retornar a la vista index con los datos de la query anterior
             return view('books.index',[
@@ -39,7 +40,7 @@ class BookController extends Controller
         //? Traer todos los libros vinculados al user logeado
         $userBooks = User::with('books')->findOrFail(auth()->user()->id);
 
-        $books = $userBooks->books()->paginate(10);
+        $books = $userBooks->books()->get();
     
         return view('books.index',[
             'user'=> $books
@@ -96,7 +97,7 @@ class BookController extends Controller
         $book->cover_image = $request->file('cover_image')->store('cover', 'public');
         
         $book->save();
-        return redirect()->route('books.index')->with('success',
+        return redirect()->route('books.show')->with('success',
             'Libro agregado exitosamente.'
         );
     }
@@ -109,8 +110,10 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
+        $comments = $book->comments;
         return view('books.show', [
             'book'=>$book,
+            'comments'=>$comments,
         ]);
     }
 
